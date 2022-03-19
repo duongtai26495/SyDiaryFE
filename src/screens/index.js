@@ -1,0 +1,6 @@
+export {default as Home} from '../screens/Home/Home'
+export {default as SignIn} from '../screens/Authen/SignIn'
+export {default as SignUp} from '../screens/Authen/SignUp'
+export {default as DiaryDetails} from '../screens/Home/DiaryDetails'
+export {default as NewDiary} from '../screens/Home/NewDiary'
+export {default as Profile} from '../screens/Authen/Profile'
