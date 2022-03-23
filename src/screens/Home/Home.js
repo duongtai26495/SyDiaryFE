@@ -86,7 +86,7 @@ const Home = ({ navigation, route }) => {
             <View key={diary_id} style={home_styles.diaryBox}>
                 <TouchableOpacity onPress={() => { navigation.navigate(Navigation_path.DIARYDETAILS, { diary_id: item.id }) }}>
                     <Text style={home_styles.diaryTitle}>{title}</Text>
-                    <Text style={home_styles.diaryDesc}>{content}</Text>
+                    <Text numberOfLines={1} style={home_styles.diaryDesc}>{content}</Text>
                     <Text style={home_styles.diaryTime}>{date}</Text>
                 </TouchableOpacity>
             </View>
@@ -96,11 +96,19 @@ const Home = ({ navigation, route }) => {
 
     const dataHiddenRender = () => {
         return (
-                <TouchableHighlight style={home_styles.hiddenDeleteBox}>
+            
+                <View style={home_styles.hiddenView}>
+                      <TouchableOpacity style={{...home_styles.hiddenBox,backgroundColor:Colors.PRIMARY}}>
+                    <Text>
+                        {Variable_string.EDIT}
+                    </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{...home_styles.hiddenBox,backgroundColor:Colors.RED}}>
                     <Text>
                         {Variable_string.DELETE}
                     </Text>
-                </TouchableHighlight>
+                    </TouchableOpacity>
+                </View>
 
         )
     }

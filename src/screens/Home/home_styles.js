@@ -12,7 +12,7 @@ const home_styles = StyleSheet.create({
     },
     diaryBox:{
         width:widthComponent,
-        elevation:3,
+        elevation:5,
         shadowColor:Colors.BLACK,
         backgroundColor:Colors.WHITE,
         borderRadius:15,
@@ -89,19 +89,22 @@ const home_styles = StyleSheet.create({
         width:'100%',
         height:'100%',
     },
-    hiddenDeleteBox:{
+    hiddenView:{
+        width:widthComponent,
+        height:'100%',
+        alignSelf:'center',
+        marginVertical:5,
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    hiddenBox:{
         height:'100%',
         width:75,
         backgroundColor:Colors.RED,
         alignSelf:'flex-end',
         borderRadius:20,
     },
-    hiddenView:{
-        width:widthComponent,
-        height:'100%',
-        alignSelf:'center',
-        marginVertical:5
-    }
+
 })
 
 export default home_styles
