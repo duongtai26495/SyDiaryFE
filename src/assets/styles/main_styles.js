@@ -9,33 +9,7 @@ const main_styles = StyleSheet.create({
         backgroundColor:background,
         padding:10,
         },
-    input:{
-        color:textColor,
-        padding:10,
-        fontSize:15,
-    },
-    button:{
-        backgroundColor:'rgba(200,100,100,1)',
-        marginTop:10,
-        borderRadius:5,
-        padding:10,
-    },
-    text:{
-        color:textColor,
-        fontSize:15,
-    },
-    item:{
-        width:'100%',
-        marginVertical:5,
-        borderColor:'rgba(50,50,50,1)',
-        borderWidth:1,
-        padding:5,
-    },
-    flatlist:{
-        height:'100%',
-        width:'100%',
-        padding:5,
-    },
+  
     indicator: {
         position: 'absolute',
         width: '100%',

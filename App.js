@@ -1,11 +1,15 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import MainTab from './src/navigations/MainTab'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Variable_string from './src/constants/Variable_string'
+import ProfileRoute from './src/navigations/ProfileRoute'
+import MainStack from './src/navigations/MainStack'
 const App = () => {
+
   return (
     <NavigationContainer>
-      <MainTab />
+      <MainStack/>
     </NavigationContainer>
   )
 }

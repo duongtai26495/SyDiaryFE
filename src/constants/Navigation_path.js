@@ -7,5 +7,8 @@ export default {
     SIGNUP: 'SignUp',
     DIARYDETAILS: 'DiaryDetails',
     NEWDIARY: 'NewDiary',
-    
+    AUTHENTICATION: 'Authentication',
+
+    AUTHENROUTE:'AuthenRoute',
+    MAINTAB:    'MainTab'
 }

@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import HomeRoute from '../navigations/HomeRoute'
-import ProfileRoute from '../navigations/ProfileRoute'
 import Icons_path from '../constants/Icons_path'
 import { Colors } from '../assets/colors'
+import { Profile } from '../screens'
 const Tab = createMaterialBottomTabNavigator()
 const iconSize = 25
 const MainTab = () => {
@@ -15,7 +15,12 @@ const MainTab = () => {
             shifting={true}
             activeColor={Colors.LIGHT}
             inactiveColor={Colors.PRIMARY}
-            barStyle={{ backgroundColor: Colors.SECONDARY }}>
+            barStyle={{ backgroundColor: Colors.SECONDARY }}
+            options={{
+                headerShown: false,
+                presentation: true,
+                animationEnabled: true,
+              }}>
             <Tab.Screen
                 name='Home'
                 component={HomeRoute}
@@ -39,7 +44,7 @@ const MainTab = () => {
 
             <Tab.Screen
                 name='Profile'
-                component={ProfileRoute}
+                component={Profile}
                 options={{
                     headerShown: false,
                     animation: true,

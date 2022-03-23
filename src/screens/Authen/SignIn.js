@@ -10,6 +10,8 @@ import Icons_path from '../../constants/Icons_path'
 import { Colors } from '../../assets/colors'
 import Variable_string from '../../constants/Variable_string'
 import main_styles from '../../assets/styles/main_styles'
+import Images_path from '../../constants/Images_path'
+
 LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
 ]);
@@ -34,7 +36,7 @@ const SignIn = ({ navigation, route }) => {
         navigation.dispatch(StackActions.replace('SignUp'))
     }
     const gotoHome = (token) => {
-        navigation.dispatch(StackActions.replace(Navigation_path.PROFILEPAGE, { accessToken: token }))
+        navigation.dispatch(StackActions.replace(Navigation_path.MAINTAB, { accessToken: token }))
     }
 
     const clearAccessToken = async () => {
@@ -44,7 +46,7 @@ const SignIn = ({ navigation, route }) => {
                     console.log("Access token is null")
                 })
         } catch (error) {
-            console.log("Error: " + error)
+            console.log(error)
         }
     }
 
@@ -83,7 +85,7 @@ const SignIn = ({ navigation, route }) => {
             setPasswordRem(passwordValue)
             setUsername(usernameValue)
             setPassword(passwordValue)
-        }else{
+        } else {
             await AsyncStorage.setItem(Variable_string.REMEMBER_STATE, 'false')
         }
     }
@@ -117,27 +119,35 @@ const SignIn = ({ navigation, route }) => {
             for (const name in dataLogin) {
                 formData.append(name, dataLogin[name]);
             }
-            const api_url = "http://192.168.1.15:8080/login"
+            const api_url = Variable_string.BASE_URL + "auth/login"
 
             await fetch(api_url, {
                 method: 'POST',
                 body: formData
             }).then((response) => {
-                
                 const result = response.json()
                 result.then(data => {
                     const token = data.access_token
                     setLoading(false)
                     saveAccessToken(token)
+                    saveUsername()
+                }).catch((error) => {
+                    setLoading(false)
+                    console.log("Login Failed: ", error)
                 })
             }).catch((error) => {
                 setLoading(false)
-                console.log(error)
+                console.log("Login Failed: ", error)
             })
         }
     }
 
-
+    const saveUsername = async () => {
+        await AsyncStorage.setItem(Variable_string.USERNAME_STORAGE, username)
+            .then(() => {
+                console.log("Username saved", username);
+            })
+    }
 
 
     return (
@@ -149,11 +159,12 @@ const SignIn = ({ navigation, route }) => {
                 animating={isLoading ? true : false}
                 style={isLoading ? main_styles.indicator : main_styles.stopIndicator}
                 hidesWhenStopped={true} />
+            <Image source={Images_path.BG1} style={authen_styles.bg} />
             <ScrollView style={authen_styles.main}>
                 <View>
-                    <Image source={Icons_path.LOGO_CIRCLE} style={authen_styles.logo} />
+                    {/* <Image source={Icons_path.LOGO_CIRCLE} style={authen_styles.logo} /> */}
                     <Text style={authen_styles.header}>
-                        {Variable_string.WCBACK.toUpperCase()}
+                        {Variable_string.WCBACK}
                     </Text>
                 </View>
                 <View style={authen_styles.authen_form}>
@@ -204,7 +215,7 @@ const SignIn = ({ navigation, route }) => {
                         <Image source={Icons_path.GO} style={authen_styles.iconInput} />
                     </TouchableOpacity>
                     <TouchableOpacity style={{ marginTop: 20 }} onPress={() => gotoSignUp()}>
-                        <Text style={authen_styles.rememberText}>{Variable_string.NOTHAVEACCOUNT}</Text>
+                        <Text style={authen_styles.navitext}>{Variable_string.NOTHAVEACCOUNT}</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

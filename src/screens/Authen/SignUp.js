@@ -10,7 +10,8 @@ import Icons_path from '../../constants/Icons_path'
 import { Colors } from '../../assets/colors'
 import Variable_string from '../../constants/Variable_string'
 import main_styles from '../../assets/styles/main_styles'
-const SignUp = ({navigation, route}) => {
+import Images_path from '../../constants/Images_path'
+const SignUp = ({ navigation, route }) => {
 
   const [fullName, setFullName] = useState()
   const [email, setEmail] = useState()
@@ -26,137 +27,138 @@ const SignUp = ({navigation, route}) => {
 
   const [isLoading, setLoading] = useState(false)
 
-  const gotoSignIn = () =>{
-    navigation.dispatch(StackActions.replace('SignIn'))
+  const gotoSignIn = () => {
+    navigation.dispatch(StackActions.replace(Navigation_path.SIGNIN))
   }
 
-  const Register = async () =>{
+  const Register = async () => {
     setLoading(true)
-      const User ={
-        fullName : fullName,
-        email : email,
-        username : username,
-        password : password
-      }
-        const api_url = "http://192.168.1.15:8080/user/register"
-        await axios.post(api_url, User)
-          .then((response)=>{
-            console.log(response.data)
-            setLoading(false)
-            removeRemember()
-            gotoSignIn();
-          })
-          .catch((error)=>{
-            if (error.response) {
-              setLoading(false)
-              console.log(error)
-            }
-          })
+    const User = {
+      fullName: fullName,
+      email: email,
+      username: username,
+      password: password
+    }
+    const api_url = Variable_string.BASE_URL + "user/register"
+    await axios.post(api_url, User)
+      .then((response) => {
+        console.log(response.data)
+        setLoading(false)
+        removeRemember()
+        gotoSignIn();
+      })
+      .catch((error) => {
+        if (error.response) {
+          setLoading(false)
+          console.log(error)
+        }
+      })
   }
 
-  const removeRemember = async () =>{
+  const removeRemember = async () => {
     await AsyncStorage.setItem(Variable_string.REMEMBER_STATE, 'false')
   }
 
   return (
     <SafeAreaView style={authen_styles.container}>
-       <ActivityIndicator
-                size={40}
-                animationDuration={1500}
-                color={Colors.PRIMARY}
-                animating={isLoading ? true : false}
-                style={isLoading ? main_styles.indicator : main_styles.stopIndicator}
-                hidesWhenStopped={true} />
-    <ScrollView style={authen_styles.main}>
+      <ActivityIndicator
+        size={40}
+        animationDuration={1500}
+        color={Colors.PRIMARY}
+        animating={isLoading ? true : false}
+        style={isLoading ? main_styles.indicator : main_styles.stopIndicator}
+        hidesWhenStopped={true} />
+      <Image source={Images_path.BG2} style={authen_styles.bg} />
+      <ScrollView style={authen_styles.main}>
         <View>
-            <Image source={Icons_path.LOGO_CIRCLE} style={authen_styles.logo} />
-            <Text style={authen_styles.header}>
-                {Variable_string.CRACCOUNT.toUpperCase()}
-            </Text>
+          {/* <Image source={Icons_path.LOGO_CIRCLE} style={authen_styles.logo} /> */}
+          <Text style={authen_styles.header}>
+            {Variable_string.CRACCOUNT}
+          </Text>
         </View>
         <View style={authen_styles.authen_form}>
-        <View style={authen_styles.inputLogin}>
-                <Image source={Icons_path.FULLNAME} style={authen_styles.iconInput} />
-                <TextInput
-                    returnKeyType='next'
-                    onSubmitEditing={() => { emailRef.current.focus() }}
-                    autoCapitalize='words'
-                    style={authen_styles.input}
-                    placeholder={Variable_string.FULLNAME}
-                    placeholderTextColor={Colors.PRIMARY}
-                    onChangeText={(value) => setFullName(value)}
-                />
-            </View>
-            <View style={authen_styles.inputLogin}>
-                <Image source={Icons_path.EMAIL} style={authen_styles.iconInput} />
-                <TextInput
-                ref={emailRef}
-                    returnKeyType='next'
-                    onSubmitEditing={() => { usernameRef.current.focus() }}
-                    autoCapitalize='none'
-                    style={authen_styles.input}
-                    placeholder={Variable_string.EMAIL}
-                    placeholderTextColor={Colors.PRIMARY}
-                    onChangeText={(value) => setEmail(value)}
-                />
-            </View>
-            <View style={authen_styles.inputLogin}>
-                <Image source={Icons_path.USERNAME} style={authen_styles.iconInput} />
-                <TextInput
-                ref={usernameRef}
-                    returnKeyType='next'
-                    onSubmitEditing={() => { passwordRef.current.focus() }}
-                    autoCapitalize='none'
-                    style={authen_styles.input}
-                    placeholder={Variable_string.USERNAME}
-                    placeholderTextColor={Colors.PRIMARY}
-                    onChangeText={(value) => setUsername(value)}
-                />
-            </View>
-            <View style={authen_styles.inputLogin}>
-                <Image source={Icons_path.PASSWORD} style={authen_styles.iconInput} />
-                <TextInput
-                    ref={passwordRef}
-                    onSubmitEditing={() => { cPasswordRef.current.focus() }}
-                    autoCapitalize='none'
-                    secureTextEntry={true}
-                    style={authen_styles.input}
-                    placeholder={Variable_string.PASSWORD}
-                    placeholderTextColor={Colors.PRIMARY}
-                    onChangeText={(value) => setPassword(value)}
-                />
-             
-            </View>
-            <View style={authen_styles.inputLogin}>
-                <Image source={Icons_path.PASSWORD} style={authen_styles.iconInput} />
-                <TextInput
-                    ref={cPasswordRef}
-                    onSubmitEditing={() => { Register() }}
-                    autoCapitalize='none'
-                    secureTextEntry={true}
-                    style={authen_styles.input}
-                    placeholder={Variable_string.CPASSWORD}
-                    placeholderTextColor={Colors.PRIMARY}
-                    onChangeText={(value) => setCPassword(value)}
-                />
-             
-            </View>
+          <View style={authen_styles.inputLogin}>
+            <Image source={Icons_path.FULLNAME} style={authen_styles.iconInput} />
+            <TextInput
+              returnKeyType='next'
+              onSubmitEditing={() => { emailRef.current.focus() }}
+              autoCapitalize='words'
+              style={authen_styles.input}
+              placeholder={Variable_string.FULLNAME}
+              placeholderTextColor={Colors.PRIMARY}
+              onChangeText={(value) => setFullName(value)}
+            />
+          </View>
+          <View style={authen_styles.inputLogin}>
+            <Image source={Icons_path.EMAIL} style={authen_styles.iconInput} />
+            <TextInput
+              ref={emailRef}
+              returnKeyType='next'
+              onSubmitEditing={() => { usernameRef.current.focus() }}
+              autoCapitalize='none'
+              style={authen_styles.input}
+              placeholder={Variable_string.EMAIL}
+              placeholderTextColor={Colors.PRIMARY}
+              onChangeText={(value) => setEmail(value)}
+            />
+          </View>
+          <View style={authen_styles.inputLogin}>
+            <Image source={Icons_path.USERNAME} style={authen_styles.iconInput} />
+            <TextInput
+              ref={usernameRef}
+              returnKeyType='next'
+              onSubmitEditing={() => { passwordRef.current.focus() }}
+              autoCapitalize='none'
+              style={authen_styles.input}
+              placeholder={Variable_string.USERNAME}
+              placeholderTextColor={Colors.PRIMARY}
+              onChangeText={(value) => setUsername(value)}
+            />
+          </View>
+          <View style={authen_styles.inputLogin}>
+            <Image source={Icons_path.PASSWORD} style={authen_styles.iconInput} />
+            <TextInput
+              ref={passwordRef}
+              onSubmitEditing={() => { cPasswordRef.current.focus() }}
+              autoCapitalize='none'
+              secureTextEntry={true}
+              style={authen_styles.input}
+              placeholder={Variable_string.PASSWORD}
+              placeholderTextColor={Colors.PRIMARY}
+              onChangeText={(value) => setPassword(value)}
+            />
 
-            <TouchableOpacity
-                style={authen_styles.buttonGo}
-                onPress={() => Register()}>
-                <Text style={authen_styles.titleButton}>
-                    {Variable_string.GO.toUpperCase()}
-                </Text>
-                <Image source={Icons_path.GO} style={authen_styles.iconInput} />
-            </TouchableOpacity>
+          </View>
+          <View style={authen_styles.inputLogin}>
+            <Image source={Icons_path.PASSWORD} style={authen_styles.iconInput} />
+            <TextInput
+              ref={cPasswordRef}
+              onSubmitEditing={() => { Register() }}
+              autoCapitalize='none'
+              secureTextEntry={true}
+              style={authen_styles.input}
+              placeholder={Variable_string.CPASSWORD}
+              placeholderTextColor={Colors.PRIMARY}
+              onChangeText={(value) => setCPassword(value)}
+            />
 
-            <TouchableOpacity style={{marginTop:20}} onPress={()=>gotoSignIn()}>
-                <Text style={authen_styles.rememberText}>{Variable_string.HAVEACCOUNT}</Text>
-            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={authen_styles.buttonGo}
+            onPress={() => Register()}>
+            <Text style={authen_styles.titleButton}>
+              {Variable_string.GO.toUpperCase()}
+            </Text>
+            <Image source={Icons_path.GO} style={authen_styles.iconInput} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{ marginTop: 20 }} onPress={() => gotoSignIn()}>
+            <Text style={authen_styles.navitext}>{Variable_string.HAVEACCOUNT}</Text>
+          </TouchableOpacity>
         </View>
-    </ScrollView>
-</SafeAreaView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

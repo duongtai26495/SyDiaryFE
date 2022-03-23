@@ -1,0 +1,107 @@
+import { StyleSheet, Dimensions } from 'react-native'
+import { Colors } from '../../assets/colors';
+const textColor = 'rgba(0,0,0,1)';
+const background = 'rgba(255,255,255,1)';
+const width = Dimensions.get('screen').width;
+const widthComponent = width/1.1
+const home_styles = StyleSheet.create({
+    container:{
+        width:'100%',
+        height:'100%',
+        flex:1,
+    },
+    diaryBox:{
+        width:widthComponent,
+        elevation:3,
+        shadowColor:Colors.BLACK,
+        backgroundColor:Colors.WHITE,
+        borderRadius:15,
+        alignSelf:'center',
+        padding:10,
+        marginVertical:5,
+    },
+    diaryTitle:{
+        color:Colors.SECONDARY,
+        fontSize:18,
+        fontWeight:'bold',
+        width:'100%',
+    },
+    diaryDesc:{
+        color:Colors.DARK,
+        fontSize:13,
+        marginVertical:10,
+        width:'100%',
+    },
+    diaryTime:{
+        color:Colors.DARK,
+        fontSize:12,
+        alignSelf:'flex-end',
+    },
+    emptyBox:{
+        width:'100%',
+        padding:10,
+    },
+    emptyBoxAddNew:{
+        width:widthComponent,
+        borderRadius:25,
+        backgroundColor:Colors.WHITE,
+        padding:15,
+        alignSelf:'center',
+        elevation:5,
+        shadowColor:Colors.SECONDARY,
+        flexDirection:'row',
+        justifyContent:'space-evenly'
+    },
+    textEmpty:{
+        color:Colors.SECONDARY,
+    },
+    iconAddnew:{
+        width:50,
+        height:50,
+        alignSelf:'center',
+    },
+    headerBox:{
+        width:'100%',
+        padding:10,
+        backgroundColor:Colors.PRIMARY,
+        marginBottom:10,
+    },
+    flatlist:{
+        height:'100%',
+        width:'100%',
+    },
+    titleHeader:{
+        alignSelf:'center',
+        alignItems:'center',
+        color:Colors.WHITE,
+        fontSize:15,
+        fontWeight:'bold',
+    },
+    addButton:{
+        width:50,
+        height:50,
+        position:'absolute',
+        bottom:30,
+        right:30,
+        zIndex:10,
+    },
+    addButtonImage:{
+        width:'100%',
+        height:'100%',
+    },
+    hiddenDeleteBox:{
+        height:'100%',
+        width:75,
+        backgroundColor:Colors.RED,
+        alignSelf:'flex-end',
+        borderRadius:20,
+    },
+    hiddenView:{
+        width:widthComponent,
+        height:'100%',
+        alignSelf:'center',
+        marginVertical:5
+    }
+})
+
+export default home_styles

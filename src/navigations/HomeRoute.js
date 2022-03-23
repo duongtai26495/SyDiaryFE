@@ -4,18 +4,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import{
     Home,
-    NewDiary,
-    DiaryDetails
 } from '../screens'
 
 const HomeRoute = () => {
     const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator initialRouteName='HomePage'>
+    <Stack.Navigator 
+    mode="modal"
+    initialRouteName='HomePage'
+    options={{
+      headerShown: false,
+      presentation: true,
+      animationEnabled: true,
+    }}>
         <Stack.Screen name='HomePage' component={Home} options={{headerShown:false, animation:'slide_from_right'}} />
-        <Stack.Screen name='NewDiary' component={NewDiary} options={{headerShown:false, animation:'slide_from_right'}} />
-        <Stack.Screen name='DiaryDetails' component={DiaryDetails} options={{headerShown:false, animation:'slide_from_right'}} />
-    </Stack.Navigator>
+     </Stack.Navigator>
   )
 }
 
