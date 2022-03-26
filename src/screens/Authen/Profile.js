@@ -18,7 +18,6 @@ const Profile = ({ navigation, route }) => {
     }, [isLogin])
 
     const cPasswordRef = useRef()
-    const updatePwRef = useRef()
 
     const [avatar, setAvatar] = useState(Images_path.DEFAULT)
     const [fullName, setFullName] = useState(Variable_string.FULLNAME)
@@ -32,19 +31,24 @@ const Profile = ({ navigation, route }) => {
     const [isFetching, setFetching] = useState(false)
     const [isUpdatePw, setUpdatePw] = useState(false)
     const [isUpdated, setUpdated] = useState(false)
+    const [isSignOut, setSignOut] = useState(false)
+
 
     const toggleChangePw = () => setUpdatePw(previousState => !previousState)
 
     const checkLogin = async () => {
+        setLoading(true)
         try {
             const token = await AsyncStorage.getItem(Variable_string.ACCESS_TOKEN_FROM_STORAGE);
             if (token !== null) {
                 getUserProfile(token)
                 console.log("AccessToken from Storage:", token)
                 setLogin(true)
+                setLoading(false)
             } else {
                 setLogin(false)
                 console.log("AccessToken is null")
+                setLoading(false)
                 navigation.dispatch(StackActions.replace(Navigation_path.AUTHENROUTE))
             }
         } catch (error) {
@@ -74,17 +78,18 @@ const Profile = ({ navigation, route }) => {
                 if (token !== null) {
                     await axios.put(url_api,
                         {
-                            password : newPassword
+                            password: newPassword
                         },
                         {
                             headers: {
                                 'Authorization': 'Bearer ' + token
                             }
-                        }).then((respone)=>{
+                        }).then((respone) => {
                             const result = respone.data
-                            if(result.status === 'SUCCESS'){
+                            if (result.status === 'SUCCESS') {
                                 console.log(result.status)
-                                SignOut()
+                                setUpdatePw(false)
+                                setUpdated(true)
                             }
                         })
                 } else {
@@ -145,7 +150,7 @@ const Profile = ({ navigation, route }) => {
                             />
 
                         </View>
-                        <TouchableOpacity onPress={()=>changePassword()} style={authen_styles.updatePwButton}>
+                        <TouchableOpacity onPress={() => changePassword()} style={authen_styles.updatePwButton}>
                             <Text style={authen_styles.updatePwText}>{Variable_string.DONE}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => toggleChangePw()} style={{ ...authen_styles.updatePwButton, backgroundColor: Colors.SMOKE }}>
@@ -159,39 +164,91 @@ const Profile = ({ navigation, route }) => {
     }
 
     const getUserProfile = async (token) => {
+        
         setLoading(true)
-        const username_storage = await AsyncStorage.getItem(Variable_string.USERNAME_STORAGE)
-        console.log("Username: " + username_storage)
-        if (username_storage != null) {
-            const url_api = Variable_string.BASE_URL + "user/profile/" + username_storage;
-            await axios.get(url_api, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-            }).then((response) => {
-                const result = response.data.data
-                const fName = result.fullName
-                const mail = result.email
-                const uname = result.username
-                setFullName(fName)
-                setEmail(mail)
-                setUsername(uname)
-                setLoading(false)
-                setFetching(false)
-            }).catch((error) => {
-                setLoading(false)
-                setFetching(false)
-                console.log("Fetch user: ", error)
-            })
-        } else {
+
+        const FULLNAME = await AsyncStorage.getItem(Variable_string.FULLNAME_STORAGE);
+        const USERNAME = await AsyncStorage.getItem(Variable_string.USERNAME_STORAGE);
+        const EMAIL = await AsyncStorage.getItem(Variable_string.EMAIL_STORAGE);
+
+        if(FULLNAME != null && USERNAME != null && EMAIL != null){
+            setFullName(FULLNAME)
+            setEmail(EMAIL)
+            setUsername(USERNAME)
             setLoading(false)
+            setFetching(false)
+        }else{
+            const username_storage = await AsyncStorage.getItem(Variable_string.USERNAME_STORAGE)
+            console.log("Username: " + username_storage)
+            if (username_storage != null) {
+                const url_api = Variable_string.BASE_URL + "user/profile/" + username_storage;
+                await axios.get(url_api, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                }).then((response) => {
+                    const result = response.data.data
+                    const fName = result.fullName
+                    const mail = result.email
+                    const uname = result.username
+                    setFullName(fName)
+                    setEmail(mail)
+                    setUsername(uname)
+                    
+                    AsyncStorage.setItem(Variable_string.FULLNAME_STORAGE, fName)
+                    AsyncStorage.setItem(Variable_string.USERNAME_STORAGE, mail)
+                    AsyncStorage.setItem(Variable_string.EMAIL_STORAGE, uname)
+    
+                    setLoading(false)
+                    setFetching(false)
+                }).catch((error) => {
+                    setLoading(false)
+                    setFetching(false)
+                    console.log("Fetch user: ", error)
+                })
+            } else {
+                setLoading(false)
+            }
         }
+      
 
     }
     const onRefresh = () => {
         setFetching(true);
         checkLogin()
     };
+
+    const signOutConfirm = () => {
+        if (isSignOut) {
+            return (
+                <View style={authen_styles.signOutViewFull}>
+                    <View style={authen_styles.signOutView}>
+                        <Text style={authen_styles.signOutHeader}>{Variable_string.CONFIRMSIGNOUT}</Text>
+                        <View style={authen_styles.confirmSignOutView} >
+                            <TouchableOpacity 
+                            onPress={()=>setSignOut(false)}
+                            style={{
+                                ...authen_styles.buttonConfirmSignOut,
+                                backgroundColor: Colors.LIGHT,
+                                borderWidth: 1,
+                                borderColor: Colors.SECONDARY
+                            }}>
+                                <Text style={{ ...authen_styles.titleButton, color: Colors.SECONDARY }}>{Variable_string.CANCEL}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                            onPress={()=>{SignOut()}}
+                            style={{ 
+                                ...authen_styles.buttonConfirmSignOut, 
+                                backgroundColor: Colors.SECONDARY }}>
+                                <Text style={authen_styles.titleButton}>{Variable_string.AGREE}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+
+            )
+        }
+    }
     return (
         <SafeAreaView style={authen_styles.container}>
             <ActivityIndicator
@@ -201,8 +258,9 @@ const Profile = ({ navigation, route }) => {
                 animating={isLoading ? true : false}
                 style={isLoading ? main_styles.indicator : main_styles.stopIndicator}
                 hidesWhenStopped={true} />
-            {updatePasswordView()}
             {pwUpdated()}
+            {updatePasswordView()}
+            {signOutConfirm()}
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
@@ -234,7 +292,7 @@ const Profile = ({ navigation, route }) => {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={authen_styles.buttonSignOut} onPress={() => { SignOut() }}>
+                <TouchableOpacity style={authen_styles.buttonSignOut} onPress={() => { setSignOut(true) }}>
                     <Text style={authen_styles.titleButton}>Sign out</Text>
                 </TouchableOpacity>
             </ScrollView>

@@ -4,7 +4,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import HomeRoute from '../navigations/HomeRoute'
 import Icons_path from '../constants/Icons_path'
 import { Colors } from '../assets/colors'
-import { Profile } from '../screens'
+import {  Profile } from '../screens'
 const Tab = createMaterialBottomTabNavigator()
 const iconSize = 25
 const MainTab = () => {
@@ -41,7 +41,7 @@ const MainTab = () => {
                         </View>
                     )
                 }} />
-
+           
             <Tab.Screen
                 name='Profile'
                 component={Profile}

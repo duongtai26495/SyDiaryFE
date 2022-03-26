@@ -15,4 +15,8 @@ export default {
     CHANGEPW: require('../assets/icons/change_pw.png'),
     NEW: require('../assets/icons/new.png'),
     ADDNEW: require('../assets/icons/addnew.png'),
+    DELETE: require('../assets/icons/delete.png'),
+    EDIT: require('../assets/icons/edit.png'),
+    SEARCHING: require('../assets/icons/search.png'),
+    CLEAR: require('../assets/icons/clear.png'),
 }

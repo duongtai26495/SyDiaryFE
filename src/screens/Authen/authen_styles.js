@@ -54,9 +54,8 @@ const main_styles = StyleSheet.create({
         width:widthComponent,
         backgroundColor: Colors.PRIMARY,
         padding: 10,
-        borderRadius: 25,
+        borderRadius: 10,
         marginVertical: 10,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignSelf:'center',
     },
@@ -257,7 +256,8 @@ const main_styles = StyleSheet.create({
         alignSelf:'center'
     },
     updatedViewFull:{
-        backgroundColor:Colors.WHITE_TRANS_6,
+        position:'absolute',
+        backgroundColor:Colors.BLACK_TRANS_5,
         width:'100%',
         height:'100%',
         zIndex:99,
@@ -265,7 +265,6 @@ const main_styles = StyleSheet.create({
     },
     updatedView:{
         width:widthComponent,
-        elevation:3,
         backgroundColor:Colors.WHITE,
         borderRadius:15,
         padding:20,
@@ -274,7 +273,43 @@ const main_styles = StyleSheet.create({
     updatedPwTitle:{
         color:Colors.SECONDARY,
         marginVertical:20
+    },
+    signOutView:{
+        position:'absolute',
+        zIndex:99,
+        paddingVertical:20,
+        width:'100%',
+        bottom:0,
+        borderTopEndRadius:10,
+        borderTopStartRadius:10,
+        backgroundColor:Colors.WHITE,
+        elevation:5,
+        shadowColor:Colors.BLACK
+    },
+    signOutHeader:{
+        color:Colors.RED,
+        alignSelf:'center',
+        fontSize:15,
+        marginVertical:15,
+    },
+    confirmSignOutView:{
+        width:'100%',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        paddingVertical:10,
+    },
+    signOutViewFull:{
+        position:'absolute',
+        width:'100%',
+        height:'100%',
+        zIndex:90,
+        backgroundColor:Colors.BLACK_TRANS_5
+    },
+    buttonConfirmSignOut:{
+        padding:5,
+        borderRadius:10,
+        flex:1,
+        marginHorizontal:3,
     }
-
 })
 export default main_styles

@@ -12,13 +12,15 @@ const home_styles = StyleSheet.create({
     },
     diaryBox:{
         width:widthComponent,
-        elevation:5,
+        elevation:3,
         shadowColor:Colors.BLACK,
         backgroundColor:Colors.WHITE,
-        borderRadius:15,
         alignSelf:'center',
         padding:10,
+        borderRadius:10,
         marginVertical:5,
+        borderWidth:0.5,
+        borderColor:Colors.SECONDARY,
     },
     diaryTitle:{
         color:Colors.SECONDARY,
@@ -29,7 +31,6 @@ const home_styles = StyleSheet.create({
     diaryDesc:{
         color:Colors.DARK,
         fontSize:13,
-        marginVertical:10,
         width:'100%',
     },
     diaryTime:{
@@ -43,7 +44,7 @@ const home_styles = StyleSheet.create({
     },
     emptyBoxAddNew:{
         width:widthComponent,
-        borderRadius:25,
+        borderRadius:10,
         backgroundColor:Colors.WHITE,
         padding:15,
         alignSelf:'center',
@@ -93,17 +94,27 @@ const home_styles = StyleSheet.create({
         width:widthComponent,
         height:'100%',
         alignSelf:'center',
-        marginVertical:5,
         flexDirection:'row',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        paddingVertical:5,
     },
     hiddenBox:{
         height:'100%',
-        width:75,
+        width:100,
         backgroundColor:Colors.RED,
-        alignSelf:'flex-end',
-        borderRadius:20,
+        borderRadius:10,
+        justifyContent:'center'
     },
+    titleHiddenBox:{
+        alignSelf:'center',
+        color:Colors.WHITE,
+    },
+    iconHiddenBox:{
+        width:30,
+        height:30,
+        alignSelf:'center',
+
+    }
 
 })
 

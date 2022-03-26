@@ -5,15 +5,13 @@ const background = 'rgba(255,255,255,1)';
 const width = Dimensions.get('screen').width;
 const widthComponent = width/1.1
 const new_styles = StyleSheet.create({
-    container:{
+
+    newDiaryFullView:{
+        position:'absolute',
         width:'100%',
         height:'100%',
-        flex:1,
-        backgroundColor:Colors.LIGHT
-    },
-    main:{
-        width:'100%',
-        height:'100%',
+        zIndex:99,
+        backgroundColor:Colors.WHITE,
     },
     headerBox:{
         width:'100%',
@@ -22,7 +20,7 @@ const new_styles = StyleSheet.create({
     },
     headerText:{
         color:Colors.WHITE,
-        fontSize:15,
+        fontSize:20,
         fontWeight:'bold',
         alignSelf:'center'
     },
@@ -47,19 +45,17 @@ const new_styles = StyleSheet.create({
         color:Colors.WHITE,
         fontSize:15,
         fontWeight:'bold',
-
     },
     buttonDiary:{
-        width:'100%',
-        borderRadius:10,
         flex:1,
+        borderRadius:10,
         padding:10,
         marginVertical:5,
     },
     buttonDiaryView:{
         alignSelf:'center',
         width:widthComponent,
-        justifyContent:'space-between'
+        flexDirection:'row',
     }
 })
 export default new_styles

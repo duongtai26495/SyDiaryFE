@@ -3,8 +3,12 @@ export default {
     ACCESS_TOKEN_FROM_STORAGE    :   'access_token_from_storage',
     REMEMBER_STATE : 'remember_state',
     USERNAME_STORAGE : 'username_storage',
+    FULLNAME_STORAGE:   'fullname_storage',
+    SAFE_SEARCH_SETTING: 'safe_search_setting',
+    EMAIL_STORAGE:  'email_storage',
     USERNAME_REMEMBER : 'username',
     PASSWORD_REMEMBER : 'password',
+
     GO  :   'Go',
     SIGNUP: 'Sign up',
     SIGNIN: 'Sign in',
@@ -38,4 +42,19 @@ export default {
     DONE:   'Done',
     PWUPDATEDWARN:'Your password has been changed successfully.\nPlease login again with new password.',
     AGREE:'Agree',
+    CONFIRMSIGNOUT:'Are you want to sign out ?',
+    EDITDIARY:'Edit Diary',
+    SEARCHING:'Searching',
+
+    CATEGORIES:'Categories',
+    ORIENTATIONS:'Orientations',
+    VERTICAL:'Vertical',
+    HORIZONTAL:'Horizontal',
+    CATEGORIES      :   ['BACKGROUNDS', 'FASHION', 'NATURE', 'SIENCE', 
+    'EDUCATION', 'FEELINGS', 'HEALTH', 'PEOPLE', 
+    'RELIGION', 'PLACES', 'ANIMALS', 
+    'INDUSTRY', 'COMPUTER', 'FOOD', 
+    'SPORTS', 'TRANSPORTATION', 'TRAVEL', 
+    'BUILDINGS', 'BUSINESS', 'MUSIC'],
+    
 }
